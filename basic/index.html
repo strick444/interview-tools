@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Interview Tool</title>
+    <title>Basic Interview Tool - Free Preview</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); min-height: 100vh; padding: 2rem; }
@@ -13,10 +13,10 @@
         .header p { color: #666; }
         .back-link { display: inline-block; margin-bottom: 1rem; color: #f5576c; text-decoration: none; font-weight: bold; }
         .back-link:hover { text-decoration: underline; }
+        .preview-banner { background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%); color: white; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; text-align: center; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333; }
-        .form-group input, .form-group textarea { width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; }
-        .form-group textarea { height: 120px; resize: vertical; }
+        .form-group textarea { width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; height: 120px; resize: vertical; }
         .btn { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: transform 0.3s ease; }
         .btn:hover { transform: translateY(-2px); }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
@@ -26,9 +26,12 @@
         .question-item p { color: #666; line-height: 1.6; }
         .loading { text-align: center; padding: 2rem; color: #666; }
         .error { background: #fee; color: #c33; padding: 1rem; border-radius: 10px; margin: 1rem 0; }
-        .promo { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: center; }
-        .promo h3 { margin-bottom: 1rem; }
-        .promo a { color: white; text-decoration: underline; }
+        .upgrade-cta { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: center; }
+        .upgrade-cta h3 { margin-bottom: 1rem; }
+        .upgrade-cta p { margin-bottom: 1.5rem; opacity: 0.95; }
+        .upgrade-cta a { background: white; color: #667eea; padding: 1rem 2rem; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; transition: transform 0.3s ease; }
+        .upgrade-cta a:hover { transform: translateY(-2px); }
+        .limit-notice { background: #fff3cd; color: #856404; padding: 1rem; border-radius: 10px; margin-top: 1rem; text-align: center; }
     </style>
 </head>
 <body>
@@ -37,67 +40,69 @@
         
         <div class="header">
             <h1>🆓 Basic Interview Tool</h1>
-            <p>Practice with common interview questions</p>
+            <p>Free preview of our AI interview assistant</p>
+        </div>
+
+        <div class="preview-banner">
+            <h3>🎯 FREE PREVIEW VERSION</h3>
+            <p>Try 3 sample questions to see how our AI interview coach works!</p>
         </div>
 
         <div class="form-group">
             <label for="jobDescription">Job Description:</label>
-            <textarea id="jobDescription" placeholder="Paste the job description here..."></textarea>
+            <textarea id="jobDescription" placeholder="Paste the job description here to get personalized interview questions..."></textarea>
         </div>
 
-        <div class="form-group">
-            <label for="apiKey">OpenAI API Key:</label>
-            <input type="password" id="apiKey" placeholder="Enter your OpenAI API key">
-            <small style="color: #666; font-size: 0.9rem;">Your API key is stored locally and never shared.</small>
-        </div>
-
-        <button class="btn" onclick="generateQuestions()">Generate Interview Questions</button>
+        <button class="btn" onclick="generateQuestions()">Generate Sample Questions</button>
 
         <div id="questionsContainer" class="questions-container"></div>
 
-        <div class="promo">
-            <h3>🚀 Need More Career Help?</h3>
-            <p>Visit <a href="https://myjobrecruiter.com" target="_blank">MyJobRecruiter.com</a> for professional career guidance, resume optimization, and job search assistance.</p>
+        <div class="upgrade-cta">
+            <h3>🚀 Want Unlimited Questions & Full Coaching?</h3>
+            <p>Get access to our complete AI interview coach with unlimited questions, resume analysis, and comprehensive preparation tools - <strong>completely FREE</strong> when you:</p>
+            <p>✅ Apply for jobs on our platform<br>✅ Set up job alerts for your dream positions</p>
+            <a href="https://myjobrecruiter.com" target="_blank">Browse 1,500+ Jobs Now →</a>
         </div>
     </div>
 
     <script>
+        let questionsGenerated = 0;
+        const maxQuestions = 1;
+
         async function generateQuestions() {
             const jobDescription = document.getElementById('jobDescription').value.trim();
-            const apiKey = document.getElementById('apiKey').value.trim();
             const container = document.getElementById('questionsContainer');
 
             if (!jobDescription) {
-                container.innerHTML = '<div class="error">Please enter a job description.</div>';
+                container.innerHTML = '<div class="error">Please enter a job description to get started.</div>';
                 return;
             }
 
-            if (!apiKey) {
-                container.innerHTML = '<div class="error">Please enter your OpenAI API key.</div>';
+            if (questionsGenerated >= maxQuestions) {
+                container.innerHTML = '<div class="limit-notice">Preview limit reached! <a href="https://myjobrecruiter.com" target="_blank" style="color: #667eea; font-weight: bold;">Apply for jobs</a> to unlock unlimited questions.</div>';
                 return;
             }
 
-            // Store API key locally
-            localStorage.setItem('openai_api_key', apiKey);
-
-            container.innerHTML = '<div class="loading">🤖 Generating interview questions...</div>';
+            container.innerHTML = '<div class="loading">🤖 Generating your sample questions...</div>';
 
             try {
                 const response = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
+                        'Authorization': 'Bearer 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'
                     },
                     body: JSON.stringify({
                         model: 'gpt-3.5-turbo',
                         messages: [{
                             role: 'user',
-                            content: `Based on this job description, generate 6 professional interview questions with detailed sample answers. Format as: "Question: [question]\\n\\nSample Answer: [detailed answer]\\n\\n---\\n\\n"
+                            content: `Based on this job description, generate exactly 3 professional interview questions with detailed sample answers. Make them engaging and relevant.
+
+Format as: "Question: [question]\\n\\nSample Answer: [detailed answer]\\n\\n---\\n\\n"
 
 Job Description: ${jobDescription}`
                         }],
-                        max_tokens: 2000,
+                        max_tokens: 1500,
                         temperature: 0.7
                     })
                 });
@@ -109,7 +114,6 @@ Job Description: ${jobDescription}`
                 const data = await response.json();
                 const content = data.choices[0].message.content;
                 
-                // Parse questions and answers
                 const sections = content.split('---').filter(section => section.trim());
                 let html = '';
 
@@ -128,20 +132,13 @@ Job Description: ${jobDescription}`
                     }
                 });
 
-                container.innerHTML = html || '<div class="error">No questions generated. Please try again.</div>';
+                container.innerHTML = html + '<div class="limit-notice">This is just a preview! <a href="https://myjobrecruiter.com" target="_blank" style="color: #667eea; font-weight: bold;">Apply for jobs</a> to unlock unlimited questions and full coaching features.</div>';
+                questionsGenerated++;
 
             } catch (error) {
-                container.innerHTML = `<div class="error">Error: ${error.message}. Please check your API key and try again.</div>`;
+                container.innerHTML = `<div class="error">Error generating questions. Please try again or <a href="https://myjobrecruiter.com" target="_blank" style="color: #667eea;">browse our job opportunities</a>.</div>`;
             }
         }
-
-        // Load saved API key
-        window.onload = function() {
-            const savedKey = localStorage.getItem('openai_api_key');
-            if (savedKey) {
-                document.getElementById('apiKey').value = savedKey;
-            }
-        };
     </script>
 </body>
-</html>
+</html>   
