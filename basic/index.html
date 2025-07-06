@@ -90,7 +90,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer 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''
+                        'Authorization': 'Bearer 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'
                     },
                     body: JSON.stringify({
                         model: 'gpt-3.5-turbo',
@@ -136,9 +136,9 @@ Job Description: ${jobDescription}`
                 questionsGenerated++;
 
             } catch (error) {
-                container.innerHTML = `<div class="error">Error generating questions. Please try again or <a href="https://myjobrecruiter.com" target="_blank" style="color: #667eea;">browse our job opportunities</a>.</div>`;
+                container.innerHTML = `<div class="error">Error generating questions: ${error.message}. Please try again or <a href="https://myjobrecruiter.com" target="_blank" style="color: #667eea;">browse our job opportunities</a>.</div>`;
             }
         }
     </script>
 </body>
-</html>   
+</html>
