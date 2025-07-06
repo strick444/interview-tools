@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Interview Tools</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; max-width: 600px; width: 90%; }
+        h1 { color: #333; margin-bottom: 1rem; font-size: 2.5rem; }
+        .subtitle { color: #666; margin-bottom: 2rem; font-size: 1.2rem; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .tool-card { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 2rem; border-radius: 15px; color: white; text-decoration: none; transition: transform 0.3s ease; }
+        .tool-card:hover { transform: translateY(-5px); }
+        .tool-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .tool-card p { opacity: 0.9; }
+        .premium-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .footer { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee; color: #666; }
+        .footer a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Professional Interview Tools</h1>
+        <p class="subtitle">Practice with confidence using our AI-powered interview preparation tools</p>
+        
+        <div class="tools-grid">
+            <a href="basic/" class="tool-card">
+                <h3>🆓 Basic Interview Tool</h3>
+                <p>Practice with 10 common interview questions. Perfect for getting started with interview preparation.</p>
+            </a>
+            
+            <a href="premium/" class="tool-card premium-card">
+                <h3>⭐ Premium Interview Tool</h3>
+                <p>Advanced tool with personalized questions, AI feedback, and comprehensive analytics.</p>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>Powered by <a href="https://myjobrecruiter.com" target="_blank">MyJobRecruiter.com</a></p>
+            <p>Professional career guidance and job search assistance</p>
+        </div>
+    </div>
+</body>
+</html>
